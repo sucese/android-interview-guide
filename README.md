@@ -23,10 +23,6 @@
 - [数据结构与算法面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android数据结构与算法面试题集.md)
 - [HR面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/HR面试题集.md)
 
-更多高质量的技术分享，欢迎关注我们的微信公众平台。
-
-<img src="https://github.com/BeesAndroid/BeesAndroid/raw/master/art/wechat.png" width="300"/>
-
 ## 简历模板
 
 一份简约而精美的简历对于一次面试来说也是非常重要的，程序员的简历不需要太浮夸，但是一定要排版简洁优美，主次分明。毕竟HR一天需要看很多份简历，对于一份排版
@@ -44,3 +40,7 @@
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_7.jpg" width = "600"/>
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_8.jpg" width = "600"/>
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_9.jpg" width = "600"/>
+
+更多高质量的技术分享，欢迎关注我们的微信公众平台。
+
+<img src="https://github.com/BeesAndroid/BeesAndroid/raw/master/art/wechat.png" width="300"/>
