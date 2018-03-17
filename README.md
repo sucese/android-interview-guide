@@ -1,4 +1,4 @@
-# <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/logo.png" alt="Android open source project analysis" width="80" height="80" align="bottom"/> An interview guide for Android development engineers
+# <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/logo.png" alt="Android open source project analysis" width="80" height="80" align="bottom"/> Android开发工程师面试指南
 
 ## 功能介绍
 
@@ -23,4 +23,4 @@
 这里也为大家准备多了多份精美的简历模板。
 
 
-<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.png"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.jpg"/>
