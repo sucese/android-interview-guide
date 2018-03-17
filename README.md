@@ -7,9 +7,12 @@
 [![Stars](https://img.shields.io/github/forks/guoxiaoxing/android-interview.svg)](https://jitpack.io/#guoxiaoxing/android-interview) 
 [![Forks](https://img.shields.io/github/issues/guoxiaoxing/android-interview.svg)](https://jitpack.io/#guoxiaoxing/android-interview) 
 
-
 ## 面试题集
 
+面试题集里的答案的来源大部分来自我的博客，这个题集相当于是博客的精华版，希望对需要面试的同学有帮助。 
+
+👉 注：这个面试题集不是供大家临时背诵之用的，如此庞大的知识体系，光靠记是记不住的，打铁还需自身硬，你需要真正的理解才行。本面试题集旨在帮助大家
+梳理知识点以及查漏补缺之用。
 
 - [Java面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Java面试题集.md)
 - [Android面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android面试题集.md)
