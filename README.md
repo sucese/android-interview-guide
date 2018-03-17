@@ -22,6 +22,7 @@
 
 这里也为大家准备了多份精美的简历模板。
 
+- [简历模板]()
 
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_0.jpg" width = "600"/>
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.jpg" width = "600"/>
