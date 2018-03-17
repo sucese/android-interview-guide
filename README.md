@@ -7,6 +7,8 @@
 [![Stars](https://img.shields.io/github/forks/guoxiaoxing/android-interview.svg)](https://jitpack.io/#guoxiaoxing/android-interview) 
 [![Forks](https://img.shields.io/github/issues/guoxiaoxing/android-interview.svg)](https://jitpack.io/#guoxiaoxing/android-interview) 
 
+> 给Android开发工程师的一份面试指南，包含面试题集与简历模板。
+
 ## 面试题集
 
 面试题集里的答案的来源大部分来自我的博客，这个题集相当于是博客的精华版，希望对需要面试的同学有帮助。 
