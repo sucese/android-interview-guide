@@ -20,7 +20,16 @@
 
 ## 简历模板
 
-这里也为大家准备多了多份精美的简历模板。
+这里也为大家准备了多份精美的简历模板。
 
 
-<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.jpg" width = "700"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_0.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_2.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_3.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_4.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_5.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_6.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_7.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_8.jpg" width = "600"/>
+<img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_9.jpg" width = "600"/>
