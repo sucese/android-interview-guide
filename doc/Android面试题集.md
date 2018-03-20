@@ -18,6 +18,43 @@ Android系统架构图
 可以通过bindService的方式，先在Activity里实现一个ServiceConnection接口，并将该接口传递给bindService()方法，在ServiceConnection接口的onServiceConnected()方法
 里执行相关操作。
 
+### Service的生命周期与启动方法由什么区别？
+
+- startService()：开启Service，调用者退出后Service仍然存在。
+- bindService()：开启Service，调用者退出后Service也随即退出。
+
+Service生命周期：
+
+- 只是用startService()启动服务：onCreate() -> onStartCommand() -> onDestory
+- 只是用bindService()绑定服务：onCreate() -> onBind() -> onUnBind() -> onDestory
+- 同时使用startService()启动服务与bindService()绑定服务：onCreate() -> onStartCommnad() -> onBind() -> onUnBind() -> onDestory
+
+### 广播分为哪几种，应用场景是什么？
+
+- 普通广播：调用sendBroadcast()发送，最常用的广播。
+- 有序广播：调用sendOrderedBroadcast()，发出去的广播会被广播接受者按照顺序接收，广播接收者按照Priority属性值从大-小排序，Priority属性相同者，动态注册的广播优先，广播接收者还可以
+选择对广播进行截断和修改。
+
+
+### 广播的两种注册方式有什么区别？
+
+- 静态注册：常驻系统，不受组件生命周期影响，即便应用退出，广播还是可以被接收，耗电、占内存。
+- 动态注册：非常驻，跟随组件的生命变化，组件结束，广播结束。在组件结束前，需要先移除广播，否则容易造成内存泄漏。
+
+### 广播发送和接收的原理了解吗，讲一讲？所在
+
+1. 继承BroadcastReceiver，重写onReceive()方法。
+2. 通过Binder机制向ActivityManagerService注册广播。
+3. 通过Binder机制向ActivityMangerService发送广播。
+4. ActivityManagerService查找符合相应条件的广播（IntentFilter/Permission）的BroadcastReceiver，将广播发送到BroadcastReceiver所在的消息队列中。
+5. BroadcastReceiver所在消息队列拿到此广播后，回调它的onReceive()方法。
+
+### ContentProvider、ContentResolver与ContentObserver之间的关系是什么？
+
+- ContentProvider：管理数据，提供数据的增删改查操作，数据源可以是数据库、文件、XML、网络等，ContentProvider为这些数据的访问提供了统一的接口，可以用来做进程间数据共享。
+- ContentResolver：ContentResolver可以不同URI操作不同的ContentProvider中的数据，外部进程可以通过ContentResolver与ContentProvider进行交互。
+- ContentObserver：观察ContentProvider中的数据变化，并将变化通知给外界。
+
 ### 描述一下Android的事件分发机制？
 
 Android事件分发机制的本质：事件从哪个对象发出，经过哪些对象，最终由哪个对象处理了该事件。此处对象指的是Activity、Window与View。
@@ -52,6 +89,17 @@ View的绘制流程主要分为三步：
 2. onLayout：确定视图的位置，从顶层父View到子View递归调用layout()方法，父View将上一步measure()方法得到的子View的布局大小和布局参数，将子View放在合适的位置上。
 3. onDraw：绘制最终的视图，首先ViewRoot创建一个Canvas对象，然后调用onDraw()方法进行绘制。onDraw()方法的绘制流程为：① 绘制视图背景。② 绘制画布的图层。 ③ 绘制View内容。
 ④ 绘制子视图，如果有的话。⑤ 还原图层。⑥ 绘制滚动条。
+
+
+### requestLayout()、invalidate()与postInvalidate()有什么区别？
+
+- requestLayout()：该方法会递归调用父窗口的requestLayout()方法，直到触发ViewRootImpl的performTraversals()方法，此时mLayoutRequestede为true，会触发onMesaure()与onLayout()方法，不一定
+会触发onDraw()方法。
+- invalidate()：该方法递归调用父View的invalidateChildInParent()方法，直到调用ViewRootImpl的invalidateChildInParent()方法，最终触发ViewRootImpl的performTraversals()方法，此时mLayoutRequestede为false，不会
+触发onMesaure()与onLayout()方法，当时会触发onDraw()方法。
+- postInvalidate()：该方法功能和invalidate()一样，只是它可以在非UI线程中调用。
+
+一般说来需要重新布局就调用requestLayout()方法，需要重新绘制就调用invalidate()方法。
 
 ### 了解APK的打包流程吗，描述一下？
 
@@ -358,6 +406,10 @@ Bitamp 占用内存大小 = 宽度像素 x （inTargetDensity / inDensity） x �
 - BitmapFactory.Options.inSampleSize：缩放比例，可以参考Luban那个库，根据图片宽高计算出合适的缩放比例。
 - BitmapFactory.Options.inPurgeable：让系统可以内存不足时回收内存。
 
+### Android如何在不压缩的情况下加载高清大图？
+
+使用BitmapRegionDecoder进行布局加载。
+
 ### Android里的内存缓存和磁盘缓存是怎么实现的。
 
 内存缓存基于LruCache实现，磁盘缓存基于DiskLruCache实现。这两个类都基于Lru算法和LinkedHashMap来实现。
@@ -415,6 +467,11 @@ adb backup -noapk com.your.packagename
 3. READ就是说明有一次读取的记录。
 4. CLEAN的后面还记录了文件的长度，注意可能会一个key对应多个文件，那么就会有多个数字。
 
+### PathClassLoader与DexClassLoader有什么区别？
+
+- PathClassLoader：只能加载已经安装到Android系统的APK文件，即/data/app目录，Android默认的类加载器。
+- DexClassLoader：可以加载任意目录下的dex、jar、apk、zip文件。
+
 ### 了解插件化和热修复吗，它们有什么区别，理解它们的原理吗？
 
 - 插件化：插件化是体现在功能拆分方面的，它将某个功能独立提取出来，独立开发，独立测试，再插入到主应用中。依次来较少主应用的规模。
@@ -422,6 +479,11 @@ adb backup -noapk com.your.packagename
 
 利用PathClassLoader和DexClassLoader去加载与bug类同名的类，替换掉bug类，进而达到修复bug的目的，原理是在app打包的时候阻止类打上CLASS_ISPREVERIFIED标志，然后在
 热修复的时候动态改变BaseDexClassLoader对象间接引用的dexElements，替换掉旧的类。
+
+目前热修复框架主要分为两大类：
+
+- Sophix：
+- Tinker：
 
 ### 关于性能优化你有什么实践经验？
 
