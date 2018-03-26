@@ -427,7 +427,7 @@ LruCache的原理是利用LinkedHashMap持有对象的强引用，按照Lru算�
 
 DiskLruCache与LruCache原理相似，只是多了一个journal文件来做磁盘文件的管理和迎神，如下所示：
 
-``
+```
 libcore.io.DiskLruCache
 1
 1

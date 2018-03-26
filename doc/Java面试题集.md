@@ -639,9 +639,74 @@ public class BreakDeadLockDemo {
 2. StringBuffer是线程安全的。
 3. StringBuilder是非线程安全的。
 
+### Java泛型了解吗，知道它的运行机制吗？
 
+> 泛型是为了参数化类型。
 
+为什么使用泛型？
 
+1. 相对于使用Object这种简单粗暴的方式，泛型提供了一种参数化的能力，使得数据的类型可以像参数一样被传递进来，这提供了一种扩展能力。
+2. 当数据类型确定以后，提供了一种类型检测机制，只有相匹配的数据才可以正常赋值，否则编译错误，增强了安全性。
+3. 泛型提高了代码的可读性，不必等到运行时采取执行类型转换，在编写代码阶段，程序员就可以通过参数书写正确的数据类型。
 
+除了用 <T> 表示泛型外，还有 <?> 这种形式。？ 被称为通配符。
+
+- <?> 被称作无限定的通配符。
+- <? extends T> 被称作有上限的通配符。
+- <? super T> 被称作有下限的通配符。
+
+### Java的类型擦除，知道它的原理吗？
+
+> 泛型信息只存在代码编译阶段，在进入JVM之前，与泛型相关的信息都会被擦除掉。
+
+在类型擦除的时候，如果泛型类里的类型参数没有指定上限，例如：<T>，则会被转成Object类型，如果指定了上限，例如：<T extends String>，则会
+被传换成对应的类型上限。
+
+### 闭包了解吗，Java里有闭包吗？
+
+> 「函数」和「函数内部能访问到的变量」（也叫环境）的总和，就是一个闭包。
+
+```kotlin
+fun main(args: Array<String>) {
+    test
+}
+val test = if (5 > 3) {
+    print("yes")
+} else {
+    print("no")
+}
+```
+
+### Lambda表达式了解吗？
+
+> Lambda 表达式俗称匿名函数。Kotlin 的 Lambda表达式更“纯粹”一点， 因为它是真正把Lambda抽象为了一种类型，而 Java 8 的 Lambda 只是单方法匿名接口实现的语法糖罢了。
+
+```kotlin
+val printMsg = { msg: String -> 
+	println(msg) 
+}
+
+fun main(args: Array<String>) {
+  printMsg("hello")
+}
+```
+
+### 高阶函数了解吗？
+
+> 当定义一个闭包作为参数的函数，称这个函数为高阶函数。
+
+```kotlin
+fun main(args: Array<String>) {
+    log("world", printMsg)
+}
+
+val printMsg = { str: String ->
+    println(str)
+}
+
+val log = { str: String, printLog: (String) -> Unit ->
+    printLog(str)
+}
+```
 
 
