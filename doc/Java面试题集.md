@@ -14,6 +14,52 @@
 
 静态方法与静态成员变量可以被继承，但是不能被重写。它对子类隐藏，因此静态方法也不能实现多态。
 
+### 为什么Java里的匿名内部类只能访问final修饰的外部变量？
+
+匿名内部类用法
+
+```java
+public class TryUsingAnonymousClass {
+    public void useMyInterface() {
+        final Integer number = 123;
+        System.out.println(number);
+
+        MyInterface myInterface = new MyInterface() {
+            @Override
+            public void doSomething() {
+                System.out.println(number);
+            }
+        };
+        myInterface.doSomething();
+
+        System.out.println(number);
+    }
+}
+```
+
+编译后的结果
+
+```java
+class TryUsingAnonymousClass$1
+        implements MyInterface {
+    private final TryUsingAnonymousClass this$0;
+    private final Integer paramInteger;
+
+    TryUsingAnonymousClass$1(TryUsingAnonymousClass this$0, Integer paramInteger) {
+        this.this$0 = this$0;
+        this.paramInteger = paramInteger;
+    }
+
+    public void doSomething() {
+        System.out.println(this.paramInteger);
+    }
+}
+```
+
+因为匿名内部类最终用会编译成一个单独的类，而被该类使用的变量会以构造函数参数的形式传递给该类，例如：Integer paramInteger，如果变量
+不定义成final的，paramInteger在匿名内部类被可以被修改，进而造成和外部的paramInteger不一致的问题，为了避免这种不一致的情况，因为Java
+规定匿名内部类只能访问final修饰的外部变量。
+
 ### 讲一下Java的编码方式？
 
 为什么需要编码
