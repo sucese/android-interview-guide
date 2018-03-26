@@ -510,8 +510,6 @@ adb backup -noapk com.your.packagename
 
 ### 关于性能优化你有什么实践经验？
 
-# 应用优化
-
 Android的应用优化可以从以下几个角度去考虑。
 
 性能优化
