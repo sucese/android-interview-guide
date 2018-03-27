@@ -29,6 +29,8 @@ Service生命周期：
 - 只是用bindService()绑定服务：onCreate() -> onBind() -> onUnBind() -> onDestory
 - 同时使用startService()启动服务与bindService()绑定服务：onCreate() -> onStartCommnad() -> onBind() -> onUnBind() -> onDestory
 
+### Service先start再bind如何关闭service，为什么bindService可以跟Activity生命周期联动？
+
 ### 广播分为哪几种，应用场景是什么？
 
 - 普通广播：调用sendBroadcast()发送，最常用的广播。
@@ -47,6 +49,8 @@ Service生命周期：
 3. 通过Binder机制向ActivityMangerService发送广播。
 4. ActivityManagerService查找符合相应条件的广播（IntentFilter/Permission）的BroadcastReceiver，将广播发送到BroadcastReceiver所在的消息队列中。
 5. BroadcastReceiver所在消息队列拿到此广播后，回调它的onReceive()方法。
+
+### 广播传输的数据是否有限制，是多少，为什么要限制？
 
 ### ContentProvider、ContentResolver与ContentObserver之间的关系是什么？
 
@@ -124,6 +128,8 @@ View的绘制流程主要分为三步：
 - postInvalidate()：该方法功能和invalidate()一样，只是它可以在非UI线程中调用。
 
 一般说来需要重新布局就调用requestLayout()方法，需要重新绘制就调用invalidate()方法。
+
+### Scroller用过吗，了解它的原理吗？
 
 ### 了解APK的打包流程吗，描述一下？
 
@@ -519,11 +525,78 @@ adb backup -noapk com.your.packagename
 - DNS与链接慢，可以让客户端复用使用的域名与链接。
 - React框架代码执行慢，可以将这部分代码拆分出来，提前进行解析。
 
-## Java和JS的相互调用怎么实现，有做过什么优化吗？
+### Java和JS的相互调用怎么实现，有做过什么优化吗？
 
 jockeyjs：https://github.com/tcoulter/jockeyjs
 
 对协议进行统一的封装和处理。
+
+### JNI了解吗，Java与C++如何相互调用？
+
+Java调用C++
+
+1. 在Java中声明Native方法（即需要调用的本地方法）
+2. 编译上述 Java源文件javac（得到 .class文件）
+3。 通过 javah 命令导出JNI的头文件（.h文件）
+4. 使用 Java需要交互的本地代码 实现在 Java中声明的Native方法 
+5. 编译.so库文件
+6. 通过Java命令执行 Java程序，最终实现Java调用本地代码
+
+C++调用Java
+
+1. 从classpath路径下搜索ClassMethod这个类，并返回该类的Class对象。
+2. 获取类的默认构造方法ID。
+3. 查找实例方法的ID。
+4. 创建该类的实例。
+5. 调用对象的实例方法。
+
+```c++
+JNIEXPORT void JNICALL Java_com_study_jnilearn_AccessMethod_callJavaInstaceMethod  
+(JNIEnv *env, jclass cls)  
+{  
+    jclass clazz = NULL;  
+    jobject jobj = NULL;  
+    jmethodID mid_construct = NULL;  
+    jmethodID mid_instance = NULL;  
+    jstring str_arg = NULL;  
+    // 1、从classpath路径下搜索ClassMethod这个类，并返回该类的Class对象  
+    clazz = (*env)->FindClass(env, "com/study/jnilearn/ClassMethod");  
+    if (clazz == NULL) {  
+        printf("找不到'com.study.jnilearn.ClassMethod'这个类");  
+        return;  
+    }  
+
+    // 2、获取类的默认构造方法ID  
+    mid_construct = (*env)->GetMethodID(env,clazz, "<init>","()V");  
+    if (mid_construct == NULL) {  
+        printf("找不到默认的构造方法");  
+        return;  
+    }  
+
+    // 3、查找实例方法的ID  
+    mid_instance = (*env)->GetMethodID(env, clazz, "callInstanceMethod", "(Ljava/lang/String;I)V");  
+    if (mid_instance == NULL) {  
+
+        return;  
+    }  
+
+    // 4、创建该类的实例  
+    jobj = (*env)->NewObject(env,clazz,mid_construct);  
+    if (jobj == NULL) {  
+        printf("在com.study.jnilearn.ClassMethod类中找不到callInstanceMethod方法");  
+        return;  
+    }  
+
+    // 5、调用对象的实例方法  
+    str_arg = (*env)->NewStringUTF(env,"我是实例方法");  
+    (*env)->CallVoidMethod(env,jobj,mid_instance,str_arg,200);  
+
+    // 删除局部引用  
+    (*env)->DeleteLocalRef(env,clazz);  
+    (*env)->DeleteLocalRef(env,jobj);  
+    (*env)->DeleteLocalRef(env,str_arg);  
+}  
+```
 
 ### 了解插件化和热修复吗，它们有什么区别，理解它们的原理吗？
 
@@ -558,3 +631,8 @@ jockeyjs：https://github.com/tcoulter/jockeyjs
 3. 静态方法调用效率高于动态方法，也可以避免创建额外对象。
 4. 对于基本数据类型和String类型的常量要使用static final修饰，这样常量会在dex文件的初始化器中进行初始化，使用的时候可以直接使用。
 5. 多使用系统API，例如数组拷贝System.arrayCopy()方法，要比我们用for循环效率快9倍以上，因为系统API很多都是通过底层的汇编模式执行的，效率比较高。
+
+### 有没有遇到64k问题，为什么，如何解决？
+
+### MVC、MVP与MVVM之间的对比分析？
+

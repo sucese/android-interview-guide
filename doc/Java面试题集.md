@@ -292,7 +292,7 @@ public class Singleton {
 }
 ```
 
-这是一个经典的DSL单例。
+这是一个经典的DCL单例。
 
 它的字节码如下：
 
@@ -405,6 +405,100 @@ Java内存模型规定了所有字段（这些字段包括实例字段、静态�
 指令重排序绘制被volatile修饰的变量的赋值操作前，添加一个内存屏障，指令重排序时不能把后面的指令重排序的内存屏障之前的位置。
 
 关于指令重排序不是本篇文章重点讨论的内容，更多细节可以参考[指令重排序](https://tech.meituan.com/java-memory-reordering.html)。
+
+### 如何防止反射、序列化攻击单例？
+
+枚举单例
+
+```java
+public enum Singleton {
+    INSTANCE {
+
+        @Override
+        protected void read() {
+            System.out.println("read");
+        }
+
+        @Override
+        protected void write() {
+            System.out.println("write");
+        }
+
+    };
+    protected abstract void read();
+    protected abstract void write();
+}
+```
+
+class文件：
+
+```java
+public abstract class Singleton extends Enum
+{
+
+    private Singleton(String s, int i)
+    {
+        super(s, i);
+    }
+
+    protected abstract void read();
+
+    protected abstract void write();
+
+    public static Singleton[] values()
+    {
+        Singleton asingleton[];
+        int i;
+        Singleton asingleton1[];
+        System.arraycopy(asingleton = ENUM$VALUES, 0, asingleton1 = new Singleton[i = asingleton.length], 0, i);
+        return asingleton1;
+    }
+
+    public static Singleton valueOf(String s)
+    {
+        return (Singleton)Enum.valueOf(singleton/Singleton, s);
+    }
+
+    Singleton(String s, int i, Singleton singleton)
+    {
+        this(s, i);
+    }
+
+    public static final Singleton INSTANCE;
+    private static final Singleton ENUM$VALUES[];
+
+    static 
+    {
+        INSTANCE = new Singleton("INSTANCE", 0) {
+
+            protected void read()
+            {
+                System.out.println("read");
+            }
+
+            protected void write()
+            {
+                System.out.println("write");
+            }
+
+        };
+        ENUM$VALUES = (new Singleton[] {
+            INSTANCE
+        });
+    }
+}
+```
+
+- 类的修饰abstract，所以没法实例化，反射也无能为力。
+- 关于线程安全的保证，其实是通过类加载机制来保证的，我们看看INSTANCE的实例化时机，是在static块中，JVM加载类的过程显然是线程安全的。
+- 对于防止反序列化生成新实例的问题还不是很明白，一般的方法我们会在该类中添加上如下方法，不过枚举中也没有显示的写明该方法。
+
+```java
+//readResolve to prevent another instance of Singleton
+private Object readResolve(){
+    return INSTANCE;
+}
+```
 
 ### 线程为什么阻塞，为和要使用多线程？
 
@@ -672,7 +766,7 @@ public class BreakDeadLockDemo {
 
 
 
-### 了解Java注解的原理吗？
+### 了解Java注解的原理吗，注解如何获取？
 
 注解相当于一种标记，在程序中加了注解就等于为程序打上了某种标记。程序可以利用ava的反射机制来了解你的类及各种元素上有无何种标记，针对不同的标记，就去做相
 应的事件。标记可以加在包，类，字段，方法，方法的参数以及局部变量上。
@@ -716,6 +810,10 @@ public class BreakDeadLockDemo {
 - <?> 被称作无限定的通配符。
 - <? extends T> 被称作有上限的通配符。
 - <? super T> 被称作有下限的通配符。
+
+### Java里的反射为何会消耗性能？
+
+反射慢主要因为反射是动态类型，这样导致把在zhuang
 
 ### Java的类型擦除，知道它的原理吗？
 

@@ -81,3 +81,5 @@ Producer由ProducerFactory这个工厂类构建的，而且所有的Producer都�
 ### EventBus是如何做到发送粘性消息的？
 
 EventBus里有一个HashMap用来存储粘性事件队列，当注册事件时，如果该事件是粘性事件，则从该队列中取出最后一个该类型的事件并发送给订阅者。
+
+### 天猫七巧板布局、vLayout的实现原理？
