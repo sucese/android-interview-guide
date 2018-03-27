@@ -77,3 +77,7 @@ Producer由ProducerFactory这个工厂类构建的，而且所有的Producer都�
 
 注：Fresco源码里的类的名字都比较长，但是都是按照一定的命令规律来的，例如：以Supplier结尾的类都实现了Supplier接口，它可以提供某一个类型的对象（factory, generator, builder, closure等）。
 以Builder结尾的当然就是以构造者模式创建对象的类。
+
+### EventBus是如何做到发送粘性消息的？
+
+EventBus里有一个HashMap用来存储粘性事件队列，当注册事件时，如果该事件是粘性事件，则从该队列中取出最后一个该类型的事件并发送给订阅者。

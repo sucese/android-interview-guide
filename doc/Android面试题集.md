@@ -35,7 +35,6 @@ Service生命周期：
 - 有序广播：调用sendOrderedBroadcast()，发出去的广播会被广播接受者按照顺序接收，广播接收者按照Priority属性值从大-小排序，Priority属性相同者，动态注册的广播优先，广播接收者还可以
 选择对广播进行截断和修改。
 
-
 ### 广播的两种注册方式有什么区别？
 
 - 静态注册：常驻系统，不受组件生命周期影响，即便应用退出，广播还是可以被接收，耗电、占内存。
@@ -54,6 +53,32 @@ Service生命周期：
 - ContentProvider：管理数据，提供数据的增删改查操作，数据源可以是数据库、文件、XML、网络等，ContentProvider为这些数据的访问提供了统一的接口，可以用来做进程间数据共享。
 - ContentResolver：ContentResolver可以不同URI操作不同的ContentProvider中的数据，外部进程可以通过ContentResolver与ContentProvider进行交互。
 - ContentObserver：观察ContentProvider中的数据变化，并将变化通知给外界。
+
+### 遇到过哪些关于Fragment的问题，如何处理的？
+
+- getActivity()空指针：这种情况一般发生在在异步任务里调用getActivity()，而Fragment已经onDetach()，此时就会有空指针，解决方案是在Fragment里使用
+一个全局变量mActivity，在onAttach()方法里赋值，这样可能会引起内存泄漏，但是异步任务没有停止的情况下本身就已经可能内存泄漏，相比直接crash，这种方式
+显得更妥当一些。
+
+- Fragment视图重叠：在类onCreate()的方法加载Fragment，并且没有判断saveInstanceState==null或if(findFragmentByTag(mFragmentTag) == null)，导致重复加载了同一个Fragment导致重叠。（PS：replace情况下，如果没有加入回退栈，则不判断也不会造成重叠，但建议还是统一判断下）
+               
+```java
+@Override 
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+// 在页面重启时，Fragment会被保存恢复，而此时再加载Fragment会重复加载，导致重叠 ;
+    if(saveInstanceState == null){
+    // 或者 if(findFragmentByTag(mFragmentTag) == null)
+       // 正常情况下去 加载根Fragment 
+    } 
+}
+```
+
+### Android里的Intent传递的数据有大小限制吗，如何解决？
+
+Intent传递数据大小的限制大概在1M左右，超过这个限制就会静默崩溃。处理方式如下：
+
+- 进程内：EventBus，文件缓存、磁盘缓存。
+- 进程间：通过ContentProvider进行款进程数据共享和传递。
 
 ### 描述一下Android的事件分发机制？
 
@@ -89,7 +114,6 @@ View的绘制流程主要分为三步：
 2. onLayout：确定视图的位置，从顶层父View到子View递归调用layout()方法，父View将上一步measure()方法得到的子View的布局大小和布局参数，将子View放在合适的位置上。
 3. onDraw：绘制最终的视图，首先ViewRoot创建一个Canvas对象，然后调用onDraw()方法进行绘制。onDraw()方法的绘制流程为：① 绘制视图背景。② 绘制画布的图层。 ③ 绘制View内容。
 ④ 绘制子视图，如果有的话。⑤ 还原图层。⑥ 绘制滚动条。
-
 
 ### requestLayout()、invalidate()与postInvalidate()有什么区别？
 
@@ -495,6 +519,12 @@ adb backup -noapk com.your.packagename
 - DNS与链接慢，可以让客户端复用使用的域名与链接。
 - React框架代码执行慢，可以将这部分代码拆分出来，提前进行解析。
 
+## Java和JS的相互调用怎么实现，有做过什么优化吗？
+
+jockeyjs：https://github.com/tcoulter/jockeyjs
+
+对协议进行统一的封装和处理。
+
 ### 了解插件化和热修复吗，它们有什么区别，理解它们的原理吗？
 
 - 插件化：插件化是体现在功能拆分方面的，它将某个功能独立提取出来，独立开发，独立测试，再插入到主应用中。依次来较少主应用的规模。
@@ -508,24 +538,20 @@ adb backup -noapk com.your.packagename
 - Sophix：
 - Tinker：
 
-### 关于性能优化你有什么实践经验？
-
-Android的应用优化可以从以下几个角度去考虑。
-
-性能优化
+### 如何做性能优化？
 
 1. 节制的使用Service，当启动一个Service时，系统总是倾向于保留这个Service依赖的进程，这样会造成系统资源的浪费，可以使用IntentService，执行完成任务后会自动停止。
 2. 当界面不可见时释放内存，可以重写Activity的onTrimMemory()方法，然后监听TRIM_MEMORY_UI_HIDDEN这个级别，这个级别说明用户离开了页面，可以考虑释放内存和资源。
 3. 避免在Bitmap浪费过多的内存，使用压缩过的图片，也可以使用Fresco等库来优化对Bitmap显示的管理。
 4. 使用优化过的数据集合SparseArray代替HashMap，HashMap为每个键值都提供一个对象入口，使用SparseArray可以免去基本对象类型转换为引用数据类想的时间。
 
-布局优化
+### 如果防止过度绘制，如何做布局优化？
 
 1. 使用include复用布局文件。
 2. 使用merge标签避免嵌套布局。
 3. 使用stub标签仅在需要的时候在展示出来。
 
-高性能编码
+### 如何提交代码质量？
 
 1. 避免创建不必要的对象，尽可能避免频繁的创建临时对象，例如在for循环内，减少GC的次数。
 2. 尽量使用基本数据类型代替引用数据类型。
