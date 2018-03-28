@@ -608,8 +608,8 @@ JNIEXPORT void JNICALL Java_com_study_jnilearn_AccessMethod_callJavaInstaceMetho
 
 目前热修复框架主要分为两大类：
 
-- Sophix：
-- Tinker：
+- Sophix：修改方法指针。
+- Tinker：修改dex数组元素。
 
 ### 如何做性能优化？
 
@@ -634,5 +634,19 @@ JNIEXPORT void JNICALL Java_com_study_jnilearn_AccessMethod_callJavaInstaceMetho
 
 ### 有没有遇到64k问题，为什么，如何解决？
 
+- 在DEX文件中，method、field、class等的个数使用short类型来做索引，即两个字节（65535），method、field、class等均有此限制。
+- APK在安装过程中会调用dexopt将DEX文件优化成ODEX文件，dexopt使用LinearAlloc来存储应用信息，关于LinearAlloc缓冲区大小，不同的版本经历了4M/8M/16M的限制，超出
+缓冲区时就会抛出INSTALL_FAILED_DEXOPT错误。
+
+解决方案是Google的MultiDex方案，具体参见：[配置方法数超过 64K 的应用](https://developer.android.com/studio/build/multidex.html?hl=zh-cn)。
+
 ### MVC、MVP与MVVM之间的对比分析？
 
+<img src="https://github.com/BeesAndroid/BeesAndroid/blob/master/art/practice/project/module/mvp_structure.png"/>
+
+- MVC：PC时代就有的架构方案，在Android上也是最早的方案，Activity/Fragment这些上帝角色既承担了V的角色，也承担了C的角色，小项目开发起来十分顺手，大项目就会遇到
+耦合过重，Activity/Fragment类过大等问题。
+- MVP：为了解决MVC耦合过重的问题，MVP的核心思想就是提供一个Presenter将视图逻辑I和业务逻辑相分离，达到解耦的目的。
+- MVVM：使用ViewModel代替Presenter，实现数据与View的双向绑定，这套框架最早使用的data-binding将数据绑定到xml里，这么做在大规模应用的时候是不行的，不过数据绑定是
+一个很有用的概念，后续Google又推出了ViewModel组件与LiveData组件。ViewModel组件规范了ViewModel所处的地位、生命周期、生产方式以及一个Activity下多个Fragment共享View
+Model数据的问题。LiveData组件则提供了在Java层面View订阅ViewModel数据源的实现方案。

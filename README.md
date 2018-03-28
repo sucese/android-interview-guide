@@ -28,7 +28,7 @@
 一份简约而精美的简历对于一次面试来说也是非常重要的，程序员的简历不需要太浮夸，但是一定要排版简洁优美，主次分明。毕竟HR一天需要看很多份简历，对于一份排版
 混乱的简历是没有太大兴趣去看的，至于简历具体怎么写，网上也有很多教程，这里也不再赘述，突出你的优势，重点写一写你做过的项目就好。
 
-- [简历模板]()
+- [简历模板](https://github.com/guoxiaoxing/android-interview/raw/master/art/HJ0001.zip)
 
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_0.jpg" width = "600"/>
 <img src="https://github.com/guoxiaoxing/android-interview/raw/master/art/resume_1.jpg" width = "600"/>
