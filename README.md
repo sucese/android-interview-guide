@@ -20,7 +20,7 @@
 - [Android面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android面试题集.md)
 - [Android开源库面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android开源库面试题集.md)
 - [Android网络编程面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android网络编程面试题集.md)
-- [数据结构与算法面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/Android数据结构与算法面试题集.md)
+- [数据结构与算法面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/数据结构与算法面试题集.md)
 - [HR面试题集(含答案)](https://github.com/guoxiaoxing/android-interview/blob/master/doc/HR面试题集.md)
 
 ## 简历模板
