@@ -2,15 +2,13 @@
 
 Android系统架构图
 
-<img src="https://github.com/guoxiaoxing/android-open-source-project-analysis/raw/master/art/android_system_structure.png" width="600"/>
+<img src="https://github.com/BeesAndroid/BeesAndroid/raw/master/art/android_system_structure.png"/>
 
-从上到下依次分为六层：
+从上到下依次分为四层：
 
-- 应用框架层
-- 进程通信层
-- 系统服务层
-- Android运行时层
-- 硬件抽象层
+- Android应用框架层
+- Android Java Framework层
+- Android C++ Framework层
 - Linux内核层
 
 ### Activity如与Service通信？
@@ -114,7 +112,7 @@ public boolean dispatchTouchEvent(MotionEvent event){
 
 View的绘制流程主要分为三步：
 
-1. onMeasure：测量视图的大小，从顶层父View到子View递归调用measure()方法，measure()调用onMeasure()方法，onMeasure()方法完成绘制工作。
+1. onMeasure：测量视图的大小，从顶层父View到子View递归调用measure()方法，measure()调用onMeasure()方法，onMeasure()方法完成测量工作。
 2. onLayout：确定视图的位置，从顶层父View到子View递归调用layout()方法，父View将上一步measure()方法得到的子View的布局大小和布局参数，将子View放在合适的位置上。
 3. onDraw：绘制最终的视图，首先ViewRoot创建一个Canvas对象，然后调用onDraw()方法进行绘制。onDraw()方法的绘制流程为：① 绘制视图背景。② 绘制画布的图层。 ③ 绘制View内容。
 ④ 绘制子视图，如果有的话。⑤ 还原图层。⑥ 绘制滚动条。
