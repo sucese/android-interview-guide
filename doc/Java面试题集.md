@@ -276,6 +276,8 @@ public class Singleton {
     //volatile保证了：1 instance在多线程并发的可见性 2 禁止instance在操作是的指令重排序
     private volatile static Singleton instance;
 
+    private Singleton(){}
+
     public static Singleton getInstance() {
         //第一次判空，保证不必要的同步
         if (instance == null) {
