@@ -45,6 +45,11 @@
 
 <img src="https://github.com/BeesAndroid/BeesAndroid/raw/master/art/wechat.png" width="300"/>
 
+我只是搜集了各种面试题，并把自己博客的内容作为答案放在了里面，本来是自己备忘用的，因为是MIT协议，被鸿洋发到公众号了，后来有位大佬追着我加原文链接，行吧，我把看到过的原文链接都加上。
+
+
+
+
 ## 开源协议
 
 ```
