@@ -45,7 +45,7 @@
 
 <img src="https://github.com/BeesAndroid/BeesAndroid/raw/master/art/wechat.png" width="300"/>
 
-我只是搜集了各种面试题，并把自己博客的内容作为答案放在了里面，本来是自己备忘用的，因为是MIT协议，被鸿洋发到公众号了，后来有位大佬追着我加原文链接，行吧，我把看到过的原文链接都加上。
+网页浏览记录
 
 [阿里、腾讯、百度、华为、京东、搜狗和滴滴最新面试题汇集](https://mp.weixin.qq.com/s?__biz=MzIyMjQ0MTU0NA==&mid=2247484617&idx=1&sn=3734e643d241ac9615424dd44462ee2d&chksm=e82c3deedf5bb4f82e7be0823739774a0a2cf8372284c8409471c2752fea1f367ca3f6857795&mpshare=1&scene=23&srcid=1128DKotEvTe4dheaTextbqp#rd)
 
