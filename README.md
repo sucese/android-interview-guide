@@ -57,6 +57,7 @@
 
 [AndroidInterview-Q-A](https://github.com/JackyAndroid/AndroidInterview-Q-A)
 
+[CommonDevKnowledge](https://github.com/AweiLoveAndroid/CommonDevKnowledge)
 
 ## 开源协议
 
