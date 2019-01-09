@@ -49,6 +49,9 @@ Service生命周期：
 5. BroadcastReceiver所在消息队列拿到此广播后，回调它的onReceive()方法。
 
 ### 广播传输的数据是否有限制，是多少，为什么要限制？
+1. 广播是通过Intent携带需要传递的数据的
+2. Intent是通过Binder机制实现的
+3. Binder对数据大小有限制，不同room不一样，一般为1M
 
 ### ContentProvider、ContentResolver与ContentObserver之间的关系是什么？
 
