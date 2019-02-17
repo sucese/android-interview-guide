@@ -82,7 +82,7 @@ protected void onCreate(@Nullable Bundle savedInstanceState) {
 
 Intent传递数据大小的限制大概在1M左右，超过这个限制就会静默崩溃。处理方式如下：
 
-- 进程内：EventBus，文件缓存、磁盘缓存。
+- 进程内：文件缓存、磁盘缓存。
 - 进程间：通过ContentProvider进行款进程数据共享和传递。
 
 ### 描述一下Android的事件分发机制？
@@ -283,7 +283,6 @@ Activity与Fragment生命周期如下所示：
 ### Activity的通信方式有哪些？
 
 - startActivityForResult
-- EventBus
 - LocalBroadcastReceiver
 
 ### Android应用里有几种Context对象，
