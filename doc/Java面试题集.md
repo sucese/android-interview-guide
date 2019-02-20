@@ -813,7 +813,7 @@ public class BreakDeadLockDemo {
 
 ### Java里的反射为何会消耗性能？
 
-反射慢主要因为反射是动态类型，这样导致把在zhuang
+反射慢主要因为反射是动态类型，导致没办法运用JVM的一些优化措施。
 
 ### Java的类型擦除，知道它的原理吗？
 
