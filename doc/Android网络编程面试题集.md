@@ -153,3 +153,5 @@ If-None-Match:"5694c7ef-24dc"
 ### HTTPS是如何保证安全的，证书如何校验？
 
 ### HTTP如何实现长连接？
+
+在HTTP1.0和HTTP1.1协议中都有对长连接的支持。其中HTTP1.0需要在request中增加Connection： keep-alive header才能够支持，而HTTP1.1默认支持。
